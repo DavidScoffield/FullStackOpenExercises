@@ -12,6 +12,13 @@ const App = () => {
   const [neutral, setNeutral] = useState(0)
   const [bad, setBad] = useState(0)
 
+  const sumNumbers = (nums) => nums.reduce((a, b) => a + b, 0)
+
+  const avg = (nums) => {
+    console.log(nums)
+    return sumNumbers(nums) / nums.length
+  }
+
   return (
     <div>
       <Title text='give feedback' />
@@ -23,6 +30,8 @@ const App = () => {
       <p>Good {good}</p>
       <p>Neutral {neutral}</p>
       <p>Bad {bad}</p>
+      <p>All {sumNumbers([good, neutral, bad])} </p>
+      <p>Average {avg([good, neutral, bad])} </p>
     </div>
   )
 }
