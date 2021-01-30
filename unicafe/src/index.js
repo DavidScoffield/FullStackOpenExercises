@@ -13,9 +13,10 @@ const Title = ({ text }) => <p className='title'>{text}</p>
 const Button = ({ text, handleClick }) => <button onClick={handleClick}>{text}</button>
 
 const Statistic = ({ text, value }) => (
-  <p className='statistic'>
-    {text} {value}
-  </p>
+  <tr>
+    <td> {text}</td>
+    <td> {value}</td>
+  </tr>
 )
 
 const Statistics = ({ good, neutral, bad }) => {
@@ -25,13 +26,15 @@ const Statistics = ({ good, neutral, bad }) => {
       {sumNumbers([good, neutral, bad]) === 0 ? (
         <p>No feedback given</p>
       ) : (
-        <>
-          <Statistic text='good' value={good} />
-          <Statistic text='neutral' value={neutral} />
-          <Statistic text='bad' value={bad} />
-          <Statistic text='all' value={sumNumbers([good, neutral, bad])} />
-          <Statistic text='average' value={avg([good, neutral, bad])} />
-        </>
+        <table className='statistic'>
+          <tbody>
+            <Statistic text='good' value={good} />
+            <Statistic text='neutral' value={neutral} />
+            <Statistic text='bad' value={bad} />
+            <Statistic text='all' value={sumNumbers([good, neutral, bad])} />
+            <Statistic text='average' value={avg([good, neutral, bad])} />
+          </tbody>
+        </table>
       )}
     </div>
   )
