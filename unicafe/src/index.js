@@ -5,26 +5,29 @@ import './index.css'
 // Functions
 const sumNumbers = (nums) => nums.reduce((a, b) => a + b, 0)
 
-const avg = (nums) => {
-  console.log(nums)
-  return sumNumbers(nums) / nums.length
-}
+const avg = (nums) => sumNumbers(nums) / nums.length
 
 // Components
-const Title = ({ text }) => <p>{text}</p>
+const Title = ({ text }) => <p className='title'>{text}</p>
 
 const Button = ({ text, handleClick }) => <button onClick={handleClick}>{text}</button>
 
 const Statistics = ({ good, neutral, bad }) => {
   return (
-    <>
-      <Title text='statistics' />
-      <p>Good {good}</p>
-      <p>Neutral {neutral}</p>
-      <p>Bad {bad}</p>
-      <p>All {sumNumbers([good, neutral, bad])} </p>
-      <p>Average {avg([good, neutral, bad])} </p>
-    </>
+    <div>
+      <Title text='statistics'></Title>
+      {sumNumbers([good, neutral, bad]) === 0 ? (
+        <p>No feedback given</p>
+      ) : (
+        <>
+          <p>Good {good}</p>
+          <p>Neutral {neutral}</p>
+          <p>Bad {bad}</p>
+          <p>All {sumNumbers([good, neutral, bad])} </p>
+          <p>Average {avg([good, neutral, bad])} </p>
+        </>
+      )}
+    </div>
   )
 }
 
