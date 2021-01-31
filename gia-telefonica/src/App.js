@@ -12,7 +12,9 @@ const App = () => {
     const newObject = {
       name: newName,
     }
-    setPersons(persons.concat(newObject))
+    persons.find((element) => element.name === newName)
+      ? alert(`${newName} already exist`)
+      : setPersons(persons.concat(newObject))
     setNewName('')
   }
 
