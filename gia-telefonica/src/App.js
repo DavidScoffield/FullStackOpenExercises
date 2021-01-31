@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
+import Filter from './components/Filter'
 import Numbers from './components/Numbers'
+import PersonForm from './components/PersonForm'
 
 const App = () => {
   const [persons, setPersons] = useState([
@@ -12,27 +14,6 @@ const App = () => {
   const [newNumber, setNewNumber] = useState('')
   const [newSearch, setNewSearch] = useState('')
 
-  const handleNameChange = (event) => setNewName(event.target.value)
-
-  const handleNumberChange = (event) => setNewNumber(event.target.value)
-
-  const handleSearchChange = (event) => setNewSearch(event.target.value)
-
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    const newObject = {
-      name: newName,
-      number: newNumber,
-    }
-    persons.find((element) => element.name === newName)
-      ? alert(`${newName} already exist`)
-      : setPersons(persons.concat(newObject))
-    setNewName('')
-    setNewNumber('')
-  }
-
-  // console.log(persons[0].name.toLowerCase())
-
   let personsFiltered = persons.filter((person) =>
     person.name.toLowerCase().includes(newSearch.toLowerCase())
   )
@@ -40,21 +21,16 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
-      <div>
-        fliter show with: <input value={newSearch} onChange={handleSearchChange} />
-      </div>
+      <Filter newSearch={newSearch} setNewSearch={setNewSearch} />
       <h2>Add a new</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          name: <input value={newName} onChange={handleNameChange} />
-        </div>
-        <div>
-          number: <input value={newNumber} onChange={handleNumberChange} />
-        </div>
-        <div>
-          <button type='submit'>add</button>
-        </div>
-      </form>
+      <PersonForm
+        newNumber={newNumber}
+        newName={newName}
+        persons={persons}
+        setNewName={setNewName}
+        setNewNumber={setNewNumber}
+        setPersons={setPersons}
+      />
       <h2>Numbers</h2>
       <Numbers persons={personsFiltered} />
     </div>
