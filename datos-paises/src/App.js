@@ -25,7 +25,7 @@ const App = () => {
   return (
     <>
       <Form search={search} setNewSearch={setNewSearch} />
-      <Results countries={countriesFiltered} />
+      <Results countries={countriesFiltered} setNewCountriesFiltered={setNewCountriesFiltered} />
     </>
   )
 }

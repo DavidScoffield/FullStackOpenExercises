@@ -1,13 +1,24 @@
 import React from 'react'
 
+import styles from '../styles/results.css'
+
 const ManyMatches = () => <p>Too many matches, specify another filter</p>
 
-const ListOfCountries = ({ countries }) => {
+const ListOfCountries = ({ countries, setNewCountriesFiltered }) => {
+  const handleShowClick = (country) => {
+    setNewCountriesFiltered([country])
+  }
+
   return (
     <ul>
-      {countries.map((country) => (
-        <li key={country.numericCode}>{country.name}</li>
-      ))}
+      {countries.map((country) => {
+        return (
+          <li key={country.numericCode}>
+            {country.name}
+            <button onClick={() => handleShowClick(country)}>Show</button>
+          </li>
+        )
+      })}
     </ul>
   )
 }
@@ -34,7 +45,7 @@ const CountryDetails = ({ country }) => {
   )
 }
 
-const Results = ({ countries }) => {
+const Results = ({ countries, setNewCountriesFiltered }) => {
   return (
     <>
       <h2>Resultados</h2>
@@ -42,7 +53,7 @@ const Results = ({ countries }) => {
       {countries.length > 10 ? (
         <ManyMatches />
       ) : countries.length > 1 ? (
-        <ListOfCountries countries={countries} />
+        <ListOfCountries countries={countries} setNewCountriesFiltered={setNewCountriesFiltered} />
       ) : countries.length === 1 ? (
         <CountryDetails country={countries[0]} />
       ) : (
