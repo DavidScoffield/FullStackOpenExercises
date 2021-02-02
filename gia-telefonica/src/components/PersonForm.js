@@ -1,5 +1,7 @@
 import React from 'react'
 
+import personsServices from '../services/persons'
+
 const PersonForm = ({ newNumber, newName, persons, setNewName, setNewNumber, setPersons }) => {
   const handleNameChange = (event) => setNewName(event.target.value)
 
@@ -13,7 +15,10 @@ const PersonForm = ({ newNumber, newName, persons, setNewName, setNewNumber, set
     }
     persons.find((element) => element.name === newName)
       ? alert(`${newName} already exist`)
-      : setPersons(persons.concat(newObject))
+      : personsServices
+          .create(newObject)
+          .then((newObj) => setPersons(persons.concat(newObj)))
+          .catch((error) => console.log('ERROR', error))
     setNewName('')
     setNewNumber('')
   }

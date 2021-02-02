@@ -9,19 +9,6 @@ const Form = ({ search, setNewSearch }) => {
     setNewSearch(event.target.value)
   }
 
-  // useEffect(() => {
-  //   axios
-  //     .get(`https://restcountries.eu/rest/v2/name/${search}`)
-  //     .then(({ data }) => {
-  //       setNewCountries(data)
-  //       console.log(data)
-  //     })
-  //     .catch((e) => {
-  //       console.log('dont work', e.response)
-  //       setNewCountries([])
-  //     })
-  // }, [search, setNewCountries])
-
   return (
     <form onSubmit={handleSubmit}>
       <h3>

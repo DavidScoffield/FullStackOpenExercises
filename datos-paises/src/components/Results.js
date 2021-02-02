@@ -1,6 +1,6 @@
 import React from 'react'
 
-import styles from '../styles/results.css'
+import '../styles/results.css'
 
 const ManyMatches = () => <p>Too many matches, specify another filter</p>
 
