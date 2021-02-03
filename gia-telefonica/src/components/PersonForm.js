@@ -2,10 +2,24 @@ import React from 'react'
 
 import personsServices from '../services/persons'
 
-const PersonForm = ({ newNumber, newName, persons, setNewName, setNewNumber, setPersons }) => {
+const PersonForm = ({
+  newNumber,
+  newName,
+  allPersons,
+  setNewName,
+  setNewNumber,
+  setAllPersons,
+}) => {
   const handleNameChange = (event) => setNewName(event.target.value)
 
   const handleNumberChange = (event) => setNewNumber(event.target.value)
+
+  const createNumber = (newObject) => {
+    personsServices
+      .create(newObject)
+      .then((newObj) => setAllPersons(allPersons.concat(newObj)))
+      .catch((error) => console.log('ERROR', error))
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -13,12 +27,9 @@ const PersonForm = ({ newNumber, newName, persons, setNewName, setNewNumber, set
       name: newName,
       number: newNumber,
     }
-    persons.find((element) => element.name === newName)
+    allPersons.find((element) => element.name === newName)
       ? alert(`${newName} already exist`)
-      : personsServices
-          .create(newObject)
-          .then((newObj) => setPersons(persons.concat(newObj)))
-          .catch((error) => console.log('ERROR', error))
+      : createNumber(newObject)
     setNewName('')
     setNewNumber('')
   }

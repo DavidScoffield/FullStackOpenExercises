@@ -7,4 +7,14 @@ const create = (newObject) => {
   return request.then((response) => response.data)
 }
 
-export default { create }
+const all = () => {
+  const request = axios.get(baseUrl)
+  return request.then((response) => response.data)
+}
+
+const deleteNum = (id) => {
+  const url = `${baseUrl}/${id}`
+  return axios.delete(url)
+}
+
+export default { create, deleteNum, all }

@@ -3,23 +3,28 @@ import Filter from './components/Filter'
 import Numbers from './components/Numbers'
 import PersonForm from './components/PersonForm'
 
-import axios from 'axios'
+import personsServices from './services/persons'
 
 const App = () => {
-  const [persons, setPersons] = useState([])
+  const [allPersons, setAllPersons] = useState([])
+  const [personsFiltered, setPersonsFiltered] = useState([])
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [newSearch, setNewSearch] = useState('')
 
-  let personsFiltered = persons.filter((person) =>
-    person.name.toLowerCase().includes(newSearch.toLowerCase())
-  )
+  // let personsFiltered = allPersons.filter((person) =>
+  //   person.name.toLowerCase().includes(newSearch.toLowerCase())
+  // )
+  useEffect(() => {
+    personsServices.all().then((pers) => setAllPersons(pers))
+  }, [])
 
   useEffect(() => {
-    axios.get('http://localhost:3001/persons').then(({ data }) => {
-      setPersons(data)
-    })
-  }, [])
+    const filtered = allPersons.filter((person) =>
+      person.name.toLowerCase().includes(newSearch.toLowerCase())
+    )
+    setPersonsFiltered(filtered)
+  }, [allPersons, setPersonsFiltered, newSearch])
 
   return (
     <div>
@@ -28,14 +33,14 @@ const App = () => {
       <h2>Add a new</h2>
       <PersonForm
         newNumber={newNumber}
-        newName={newName}
-        persons={persons}
-        setNewName={setNewName}
         setNewNumber={setNewNumber}
-        setPersons={setPersons}
+        newName={newName}
+        setNewName={setNewName}
+        allPersons={allPersons}
+        setAllPersons={setAllPersons}
       />
       <h2>Numbers</h2>
-      <Numbers persons={personsFiltered} />
+      <Numbers personsFiltered={personsFiltered} setPersonsFiltered={setPersonsFiltered} />
     </div>
   )
 }
