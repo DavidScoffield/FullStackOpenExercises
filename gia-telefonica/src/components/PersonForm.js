@@ -18,7 +18,10 @@ const PersonForm = ({
     personsServices
       .create(newObject)
       .then((newObj) => setAllPersons(allPersons.concat(newObj)))
-      .catch((error) => console.log('ERROR//', error.message))
+      .catch((error) => {
+        const msg = error.response.data.error
+        console.log('ERROR//', msg)
+      })
   }
 
   const handleSubmit = (e) => {
