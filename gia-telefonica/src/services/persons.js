@@ -17,4 +17,5 @@ const deleteNum = (id) => {
   return axios.delete(url)
 }
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default { create, deleteNum, all }
