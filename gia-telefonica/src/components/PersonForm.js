@@ -24,15 +24,30 @@ const PersonForm = ({
       })
   }
 
+  const updateNumber = (id, newObject) => {
+    personsServices
+      .updateNum({ id, newObject })
+      .then((updatedPerson) => {
+        const newAllPersons = allPersons.map((person) =>
+          person.id === updatedPerson.id ? updatedPerson : person
+        )
+        setAllPersons(newAllPersons)
+      })
+      .catch((error) => {
+        const msg = error.response.data.error
+        console.log('ERROR//', msg)
+      })
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault()
     const newObject = {
       name: newName,
       number: newNumber,
     }
-    allPersons.find((element) => element.name === newName)
-      ? alert(`${newName} already exist`)
-      : createNumber(newObject)
+    const personFound = allPersons.find((element) => element.name === newName)
+
+    personFound ? updateNumber(personFound.id, newObject) : createNumber(newObject)
     setNewName('')
     setNewNumber('')
   }
