@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react'
+
+import ErrorNotification from './components/ErrorNotification'
 import Filter from './components/Filter'
 import Numbers from './components/Numbers'
 import PersonForm from './components/PersonForm'
@@ -11,6 +13,7 @@ const App = () => {
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [newSearch, setNewSearch] = useState('')
+  const [errorNotification, setNewErrorNotification] = useState('')
 
   // let personsFiltered = allPersons.filter((person) =>
   //   person.name.toLowerCase().includes(newSearch.toLowerCase())
@@ -29,6 +32,7 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+      {errorNotification && <ErrorNotification message={errorNotification} />}
       <Filter newSearch={newSearch} setNewSearch={setNewSearch} />
       <h2>Add a new</h2>
       <PersonForm
@@ -38,9 +42,15 @@ const App = () => {
         setNewName={setNewName}
         allPersons={allPersons}
         setAllPersons={setAllPersons}
+        setNewErrorNotification={setNewErrorNotification}
       />
       <h2>Numbers</h2>
-      <Numbers personsFiltered={personsFiltered} setPersonsFiltered={setPersonsFiltered} />
+      <Numbers
+        personsFiltered={personsFiltered}
+        setPersonsFiltered={setPersonsFiltered}
+        allPersons={allPersons}
+        setAllPersons={setAllPersons}
+      />
     </div>
   )
 }

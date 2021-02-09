@@ -1,6 +1,7 @@
 import React from 'react'
 
 import personsServices from '../services/persons'
+import { showErrorNotification } from './ErrorNotification'
 
 const PersonForm = ({
   newNumber,
@@ -9,6 +10,7 @@ const PersonForm = ({
   setNewName,
   setNewNumber,
   setAllPersons,
+  setNewErrorNotification,
 }) => {
   const handleNameChange = (event) => setNewName(event.target.value)
 
@@ -21,6 +23,7 @@ const PersonForm = ({
       .catch((error) => {
         const msg = error.response.data.error
         console.log('ERROR//', msg)
+        showErrorNotification({ msg, setNewErrorNotification })
       })
   }
 
@@ -36,6 +39,7 @@ const PersonForm = ({
       .catch((error) => {
         const msg = error.response.data.error
         console.log('ERROR//', msg)
+        showErrorNotification({ msg, setNewErrorNotification })
       })
   }
 

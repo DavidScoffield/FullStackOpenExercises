@@ -10,13 +10,15 @@ const Person = ({ name, number }) => {
   )
 }
 
-const Numbers = ({ personsFiltered, setPersonsFiltered }) => {
+const Numbers = ({ personsFiltered, setPersonsFiltered, setAllPersons, allPersons }) => {
   const deleteNumber = (person) => {
     const confirmation = window.confirm(`Delete ${person.name}?`)
     if (confirmation) {
       personsServices.deleteNum(person.id).then(() => {
         const filtered = personsFiltered.filter((pers) => pers.id !== person.id)
+        const allPersonsWithoutDeletedPerson = allPersons.filter((pers) => pers.id !== person.id)
         setPersonsFiltered(filtered)
+        setAllPersons(allPersonsWithoutDeletedPerson)
       })
     }
   }
